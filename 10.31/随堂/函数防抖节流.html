@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="form">
+        没防抖 <input type="text" name="" class="ipt1"><br>
+        添加防抖 <input type="text" name="" class="ipt2"><br>
+        添加节流 <input type="text" name="" class="ipt3"><br>
+    </div>
+    <button class="btn">发射</button>
+    <div class="box"></div>
+    <script src="../vendor/jqery-3.2.1.min.js"></script>
+    <script>
+        function ajax() {
+            $.ajax({
+                url: "data.php",
+                type: 'get',
+                data: 'input=' + $('.ipt1').val(),
+                tataType: 'text',
+                success: function (data) {
+                    $('.box').append('<div>' + data + '</div>')
+                }
+            })
+        }
+        //正常请求
+        $('.ipt1').keyup(function () {
+            ajax()
+        })
+        //防抖
+        // var timer;
+        // $('.ipt2').keyup(function(){
+        //     clearTimeout(timer);
+        //     timer = setTimeout(function(){
+        //         ajax()
+        //     },400)
+        // })
+        //函数防抖
+        function debounce(delay, callback) { 
+            var timer;
+            return function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback();
+                }, delay)
+            }
+        }
+        var debounceAjax = debounce(400, ajax);
+        $('.ipt2').keyup(function () {
+            console.log(2)
+            debounceAjax()
+        })
+        //节流
+        // var lastTime, timer;
+        // $('.ipt3').keyup(function () {
+        //     var nowTime = Date.now();//当前的时间戳
+        //     if (lastTime && nowTime < lastTime + 1000) {
+        //         clearTimeout(timer);
+        //         timer = setTimeout(function () {
+        //             lastTime = nowTime;
+        //             ajax();
+        //         }, 500)
+        //     } else { //立即执行
+        //         lastTime = nowTime;
+        //         ajax()
+        //     }
+        // })
+        //函数节流
+        function throttle(delay, callback) {
+            var lastTime, timer;
+            return function () {
+                var nowTime = Date.now();//当前的时间戳
+                if (lastTime && nowTime < lastTime + 1000) {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        lastTime = nowTime;
+                        callback()
+                    }, delay)
+                } else { //立即执行
+                    lastTime = nowTime;
+                    callback()
+                }
+            }
+        }
+        var throttleAjax = throttle(500, ajax);
+        $('.ipt3').keyup(function () {
+            throttleAjax()
+        })
+        var speed = 1000;
+        function send() {
+            console.log('发射一颗子弹', speed)
+        }
+        speed -= 900;
+        var throttleSend = throttle(speed, send);
+        $('.btn').click(function () {
+            throttleSend()
+        })
+        function callback(msg) {
+            msg()
+        }
+        var msgs = function () {
+            alert(11)
+        }
+        callback(msgs)
+    </script>
+</body>
+
+</html>

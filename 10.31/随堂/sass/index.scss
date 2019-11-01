@@ -1,0 +1,43 @@
+@charset "UTF-8";
+$size:19px;
+$color:#ccc;
+@mixin common1{
+    border: 1px solie red;
+    text-align:center;
+}
+@mixin common2($size,$color){
+    font-size:$size;
+    background-color:$color;
+}
+.wrap{
+    width: 444px;
+    height: 300px;
+}
+.box{
+    @extend .wrap;
+    @include common2(21px,#ddd);
+    &-title{
+        color:blue;
+        font-size: 22px;
+        color: $color;
+        text-align: center;
+        @include common1;
+    }
+    &-con{
+        font-size:$size;
+        color:#333;
+        @include common1;
+        background-color:lighten(red,30%)
+    }
+    .footer{
+        @extend .wrap;
+        @include common2(18px,pink );
+        @include common1;
+        span{
+            font-size: $size;
+            color: red; 
+        }
+    }
+    
+}
+@import 'bbd';

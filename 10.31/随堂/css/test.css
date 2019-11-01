@@ -1,0 +1,61 @@
+@charset "UTF-8";
+/* sass和css都认识的注释，会被编译到css中 */
+/* .box{
+    width: 400px;
+    height: 200px;
+    background-color: #ddd;
+}
+.box .box-titile {
+    font-size: 22px;
+    color: blue;
+    text-align: center;
+}
+.box .box-con{
+    font-size: 18px;
+    color: #333;
+} */
+.wrap, .box, .box .footer {
+  width: 400px;
+  height: 200px; }
+
+.box {
+  font-size: 21px;
+  background-color: #ccc; }
+  .box-title {
+    color: blue;
+    font-size: 22px;
+    color: #ccc;
+    text-align: center;
+    border: 1px solid #000;
+    text-align: center; }
+  .box-con {
+    font-size: 19px;
+    color: #333;
+    border: 1px solid #000;
+    text-align: center;
+    background-color: #efd321; }
+  .box .footer {
+    font-size: 18px;
+    background-color: yellow;
+    border: 1px solid #000;
+    text-align: center; }
+    .box .footer span {
+      font-size: 19px;
+      color: gray; }
+
+body {
+  width: 100%;
+  height: 100%;
+  width: 800px; }
+
+li {
+  list-style: none; }
+
+a {
+  font-size: 19px; }
+  a:link {
+    color: blue; }
+  a:hover {
+    color: red; }
+  a:visited {
+    color: gray; }
